@@ -9,6 +9,11 @@ More to come...
 
 ## Setup
 
+ * Edit the `hosts` and `gateway variables to the `Vagrantfile` to run
+   on VMs.  Note that the VMs' network configurations are specific to
+   Internet2's perfSONAR development farm and will likely be different
+   on your system.
+
  * Add SSH public key to the `ssh/user-keys` directory, one per file.
    All of these will be authorized to log into the ansible account.
 
