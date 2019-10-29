@@ -1,0 +1,12 @@
+{
+    "booth-reachability": {
+        "type": "netreach",
+	"spec": {
+	    "host": "{% jq .addresses[0].address %}",
+	    "network": "{% jq .addresses[0]._meta.network %}",
+	    "scan": "edges",
+	    "schema": 1,
+	    "timeout": "PT10S"
+        }
+    }
+}

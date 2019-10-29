@@ -1,0 +1,10 @@
+{
+    "booth-reachability": {
+	"archiver": "syslog",
+	"data": {
+            "ident": "booth-reachability",
+            "facility": "local4",
+            "priority": "info"
+	}
+    }
+}

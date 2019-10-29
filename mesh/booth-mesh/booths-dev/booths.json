@@ -1,0 +1,49 @@
+[
+
+  {
+    "booth": "100",
+    "name": "Network 100",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc0"
+  },
+  {
+    "booth": "101",
+    "name": "Network 101",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc0"
+  },
+
+  {
+    "booth": "1000",
+    "name": "Network 1000",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc1"
+  },
+  {
+    "booth": "1001",
+    "name": "Network 1001",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc1"
+  },
+
+  {
+    "booth": "2000",
+    "name": "Network 2000",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc2"
+  },
+  {
+    "booth": "2001",
+    "name": "Network 2001",
+    "network": "127.0.0.0/24",
+    "protocol": "IPv4",
+    "dnoc": "dnoc2"
+  }
+
+
+]

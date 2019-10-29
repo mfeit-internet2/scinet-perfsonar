@@ -1,0 +1,7 @@
+{
+    "booth-reachability": {
+      "repeat": "PT5M",
+      "sliprand": true,
+      "slip": "PT4M"
+    }
+}

@@ -1,0 +1,30 @@
+[
+    {
+
+	"#": "TODO: The 'name' field for each of these has to be replaced",
+	"#": "TODO: with the DNOC perfSONAR's FQDN.",
+
+	"name" :"dnoc571.scinet.fqdn",
+	"display": "SCinet DNOC, Booth 571"
+    },
+    {
+	"name" :"dnoc614.scinet.fqdn",
+	"display": "SCinet DNOC, Booth 614"
+    },
+    {
+	"name" :"noc.scinet.fqdn",
+	"display": "SCinet NOC, Booth 1081"
+    },
+    {
+	"name" :"dnoc1238.scinet.fqdn",
+	"display": "SCinet DNOC 1238"
+    },
+    {
+	"name" :"dnoc1717.scinet.fqdn",
+	"display": "SCinet DNOC, Booth 1717"
+    },
+    {
+	"name" :"dnoc1771.scinet.fqdn",
+	"display": "SCinet DNOC, Booth 1771"
+    }
+]

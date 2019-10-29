@@ -1,0 +1,9 @@
+{
+    "booth-reachability": {
+	"archiver": "esmond",
+	"data": {
+            "url": "https://archive/esmond/perfsonar/archive",
+            "measurement-agent": "{% scheduled_by_address %}"
+	}
+    }
+}

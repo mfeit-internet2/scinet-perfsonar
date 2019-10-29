@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# Build the SCinet perfSONAR Booth-Up Mesh
+#
+
+# Stock CentOS is jq 1.5.
+
+# Convert the booth list to address entries
+
+jq '
+  [
+    .[]
+    | {
+        "address": .dnoc,
+        "_meta": {
+          "display-name" : "\(
+            # Zero-pad the booth numbers so they sort numerically
+            .booth as $booth
+            | "0" * (4-($booth |length)) + $booth
+            ) - \(.name)",
+          "name": "booth-\(.booth)-\(.protocol)",
+          "booth": .booth,
+          "network": .network,
+          "protocol": .protocol
+        }
+      }
+  ]
+  | map( { "\(._meta.name)": . } )
+  | add
+' \
+    booths.json \
+    > addresses.json
+
+
+# Create groups for each DNOC
+
+jq --slurp '
+  [
+    .[0] as $dnocs
+    | .[1] as $addresses
+    | $dnocs
+    | .[]
+    | (
+        .name as $dnoc
+        | {
+            (.display): {
+              "type": "list",
+              "addresses": ( [
+                $addresses 
+                | .[]
+                | select(.address == $dnoc)
+                | { "name": (._meta.name) }
+              ] )
+            }
+          }
+       )
+  ]
+  | add
+' \
+    dnocs.json \
+    addresses.json \
+    > groups.json
+
+
+# Generate tasks for each group
+
+jq '
+  [
+    to_entries
+    | .[]
+    | {
+        "\(.key)": {
+          "group": .key,
+          "test": "booth-reachability",
+          "schedule": "booth-reachability",
+          "archives": [ "booth-reachability" ]
+        }
+      }
+  ]
+  | add
+' \
+    groups.json \
+    > tasks.json
+# Merge everything
+
+jq --slurp '
+  {
+    "addresses": .[0],
+    "groups": .[1],
+    "tests": .[2],
+    "schedules": .[3],
+    "tasks": .[4],
+    "archives": .[5]
+  }
+' \
+    addresses.json \
+    groups.json \
+    tests.json \
+    schedules.json \
+    tasks.json \
+    archives.json
