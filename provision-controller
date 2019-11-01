@@ -1,0 +1,105 @@
+#!/bin/sh -e
+#
+# Provision the SCinet perfSONAR Ansible controller
+#
+
+if [ $(id -u) -ne 0 ]
+then
+    echo "This program must be run as root." 1>&2
+    exit 1
+fi
+
+WHEREAMI=$(dirname "$0")
+
+
+#
+# Ansible Account
+#
+
+# This will have been built manually or by Vagrant
+
+ANSIBLE_USER=ansible
+ANSIBLE_HOME=~ansible
+
+
+#
+# EPEL, which has newer versions of a few things we use.
+#
+
+# Determine the RHEL version without depending on lsb_release.
+REDHAT_RELEASE_MAJOR=$(sed -e 's/^.* \([0-9.]\+\) .*$/\1/' /etc/redhat-release | awk -F. '{ print $1 }')
+
+EPEL_OP=$(rpm -q --quiet epel-release && echo update || echo install)
+yum -y "${EPEL_OP}" "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${REDHAT_RELEASE_MAJOR}.noarch.rpm"
+
+
+#
+# Configure SSH
+#
+
+SSHDIR="${ANSIBLE_HOME}/.ssh"
+
+# Our own keys
+cp -f ${WHEREAMI}/ssh/id_* "${SSHDIR}"
+
+# Keys of friendly users
+cp -f ${WHEREAMI}/ssh/authorized_keys "${SSHDIR}/authorized_keys"
+
+# Install the SSH config
+cp -f ${WHEREAMI}/ssh/config "${SSHDIR}/config"
+
+# Batten down the SSH directory's hatches.
+chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" "${SSHDIR}"
+chmod 700 "${SSHDIR}"
+find "${SSHDIR}" -type f | xargs -r chmod 400
+
+#
+# Install Ansible and provision everything
+#
+
+yum -y install ansible git
+
+
+#
+# Install the perfSONAR playbook
+#
+
+PLAYBOOK=ansible-playbook-perfsonar
+rm -rf ${PLAYBOOK}
+git clone "https://github.com/perfsonar/${PLAYBOOK}.git"
+PLAYBOOK=$(cd "${PLAYBOOK}" && pwd)
+( cd "${PLAYBOOK}" \
+    && ansible-galaxy install -r requirements.yml --ignore-errors )
+
+
+#
+# Install the inventory
+#
+
+# Pick an inventory depending on whether we're developing or building
+# the real thing.
+
+[ -e "/vagrant" ] && BUILD=dev || BUILD=scinet
+
+INVENTORY=$(cd "./ansible/inventory-${BUILD}" && pwd)
+
+#
+# Build and install the mesh configuration
+#
+
+yum -y install jq
+make -C mesh clean
+make -C mesh
+cp mesh/scinet-mesh.json ${PLAYBOOK}/files/mesh.json
+
+# Make ansible own all of it
+
+chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" "${PLAYBOOK}"
+
+# Make sure Ansible can see everything and do the deed.
+
+sudo -u "${ANSIBLE_USER}" ansible -i "${INVENTORY}/" all -m ping
+
+( cd "${PLAYBOOK}" \
+    && sudo -u "${ANSIBLE_USER}" ansible-playbook -i "${INVENTORY}/" perfsonar.yml ) \
+    | tee "${HOME}/ansible.out"

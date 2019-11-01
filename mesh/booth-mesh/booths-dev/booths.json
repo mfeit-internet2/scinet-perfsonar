@@ -1,5 +1,4 @@
 [
-
   {
     "booth": "100",
     "name": "Network 100",
@@ -44,6 +43,4 @@
     "protocol": "IPv4",
     "dnoc": "dnoc2"
   }
-
-
 ]
