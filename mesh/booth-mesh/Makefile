@@ -4,14 +4,12 @@
 
 OUTPUT=booth-mesh.json
 
-# TODO: Switch to scinet for production
-#BOOTH_SET=dev
-BOOTH_SET=scinet
+ifndef BOOTH_DIR
+BOOTH_DIR := $(shell [ -d /vagrant ] && echo "dev" || echo "scinet")
+endif
 
 default: $(OUTPUT)
 
-
-BOOTH_DIR=booths-$(BOOTH_SET)
 
 $(BOOTH_DIR)/booths.json::
 	$(MAKE) -C $(BOOTH_DIR) booths.json
@@ -19,8 +17,12 @@ $(BOOTH_DIR)/booths.json::
 booths.json: $(BOOTH_DIR)/booths.json
 	rm -f $@
 	cp $(BOOTH_DIR)/$@ $@
-
 TO_CLEAN += booths.json
+
+dnocs.json: $(BOOTH_DIR)/dnocs.json
+	rm -f $@
+	cp $(BOOTH_DIR)/$@ $@
+TO_CLEAN += dnocs.json
 
 
 $(OUTPUT): build-mesh archives.json booths.json dnocs.json schedules.json tests.json
@@ -34,7 +36,8 @@ TO_CLEAN += \
 
 
 clean:
-	$(MAKE) -C $(BOOTH_DIR) $@
+	$(MAKE) -C dev $@
+	$(MAKE) -C scinet $@
 	rm -rf $(TO_CLEAN) *~
 
 
