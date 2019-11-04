@@ -11,3 +11,4 @@ jq --slurp '.[1] as $reach | .[0].grids *= $reach | .[0]' \
     > "${BUILD}"
 
 mv -f "${BUILD}" "${AGENT}"
+chown perfsonar.perfsonar "${AGENT}"
