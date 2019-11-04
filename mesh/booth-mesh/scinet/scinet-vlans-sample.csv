@@ -1,2 +1,2 @@
 VLAN,Name,Booth org,Booth number,Net-ipv4,Net-ipv6,Internal use,IPv6 enabled,Ptp,DHCP pool size,Dhcpd statements,Comments,Infrastructure use,Persistent
-999,Exhibitor network 999,Nine Nine Nine Corp.,999,10.10.10.0/24,fc00::/64,False,False,False,15,,,False
+999,Exhibitor network 999,Nine Nine Nine Corp.,999,10.10.10.0/24,fc00::/64,False,False,False,15,,,False,
