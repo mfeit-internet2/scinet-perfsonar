@@ -100,6 +100,17 @@ chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" "${PLAYBOOK}"
 
 sudo -u "${ANSIBLE_USER}" ansible -i "${INVENTORY}/" all -m ping
 
-( cd "${PLAYBOOK}" \
-    && sudo -u "${ANSIBLE_USER}" ansible-playbook -i "${INVENTORY}/" perfsonar.yml ) \
+# Main build
+
+sudo -u "${ANSIBLE_USER}" ansible-playbook \
+    -i "${INVENTORY}/" \
+    "${PLAYBOOK}/perfsonar.yml" \
     | tee "${HOME}/ansible.out"
+
+
+# MaDDash tweaks
+
+sudo -u "${ANSIBLE_USER}" ansible-playbook \
+    -i "${INVENTORY}/" \
+    "${WHEREAMI}/ansible/playbooks/maddash-netreach.yml" \
+    | tee "${HOME}/ansible-maddash.out"
