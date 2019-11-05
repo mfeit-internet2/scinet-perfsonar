@@ -114,3 +114,14 @@ sudo -u "${ANSIBLE_USER}" ansible-playbook \
     -i "${INVENTORY}/" \
     "${WHEREAMI}/ansible/playbooks/maddash-netreach.yml" \
     | tee "${HOME}/ansible-maddash.out"
+
+
+# Patch to Esmond archiver
+#
+# TODO: This should come out for SC20 since perfSONAR will have
+# released the patched version by then.
+
+sudo -u "${ANSIBLE_USER}" ansible-playbook \
+    -i "${INVENTORY}/" \
+    "${WHEREAMI}/ansible/playbooks/esmond-archiver-fix.yml" \
+    | tee "${HOME}/ansible-maddash.out"
