@@ -62,10 +62,12 @@ destroy:
 rebuild: destroy vagrant
 
 
-clean: destroy
+clean-only:
 	set -e ; \
 	for DIR in $(SUBDIRS) ; \
 	do \
-		$(MAKE) -C $$DIR $@ ; \
+		$(MAKE) -C $$DIR clean ; \
 	done
 	rm -rf $(TO_CLEAN) *~
+
+clean: destroy clean-only
