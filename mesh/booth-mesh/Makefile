@@ -11,8 +11,8 @@ endif
 default: $(OUTPUT)
 
 
-$(BOOTH_DIR)/booths.json::
-	$(MAKE) -C $(BOOTH_DIR) booths.json
+$(BOOTH_DIR)/booths.json $(BOOTH_DIR)/dnocs.json:
+	$(MAKE) -C $(BOOTH_DIR)
 
 booths.json: $(BOOTH_DIR)/booths.json
 	rm -f $@

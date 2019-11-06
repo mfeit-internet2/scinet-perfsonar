@@ -1,31 +1,26 @@
-[
-    {
-        "name": "DNOC571-PS10G-eth1.sc19.org",
+{
+    "571": {
+        "name": "dnoc571-ps10g-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 571"
     },
-    {
-        "name": "DNOC614-PS10G-eth1.sc19.org",
+    "614": {
+        "name": "dnoc614-ps10g-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 614"
     },
-    {
-	"name": "NOC1081-PS100G-eth1.sc19.org",
+    "noc": {
+	"name": "noc1081-ps100g-eth1.sc19.org",
 	"display": "SCinet NOC, Booth 1081"
     },
-    {
-        "name": "DNOC1238-PS10G-eth1.sc19.org",
-	"display": "SCinet DNOC 1238"
+    "1238": {
+        "name": "dnoc1238-ps10g-eth1.sc19.org",
+	"display": "SCinet DNOC, Booth 1238"
     },
-    {
-        "name": "DNOC1717-PS10G-eth1.sc19.org",
+    "1717": {
+        "name": "dnoc1717-ps10g-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 1717"
     },
-    {
-        "name": "DNOC1771-PS10G-eth1.sc19.org",
+    "1771": {
+        "name": "dnoc1771-ps10g-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 1771"
     }
-]
-
-
-
-
-
+}

@@ -7,28 +7,31 @@
 
 # Convert the booth list to address entries
 
-jq '
-  [
-    .[]
-    | {
-        "address": .dnoc,
-        "_meta": {
-          "display-name" : "\(
-            # Zero-pad the booth numbers so they sort numerically
-            .booth as $booth
-            | "0" * (4-($booth |length)) + $booth
-            ) - \(.name)",
-          "name": "booth-\(.booth)-\(.protocol)",
-          "booth": .booth,
-          "network": .network,
-          "protocol": .protocol
+jq --slurp '
+  .[1] as $dnocs
+  | .[0]
+  | [
+      .[]
+      | {
+          "address": $dnocs[.dnoc].name,
+          "_meta": {
+            "display-name" : "\(
+              # Zero-pad the booth numbers so they sort numerically
+              .booth as $booth
+              | "0" * (4-($booth |length)) + $booth
+              ) - \(.name)",
+            "name": "booth-\(.booth)-\(.protocol)",
+            "booth": .booth,
+            "network": .network,
+            "protocol": .protocol
+          }
         }
-      }
-  ]
+    ]
   | map( { "\(._meta.name)": . } )
   | add
 ' \
     booths.json \
+    dnocs.json \
     > addresses.json
 
 
@@ -60,6 +63,7 @@ jq --slurp '
     dnocs.json \
     addresses.json \
     > groups.json
+
 
 
 # Generate tasks for each group

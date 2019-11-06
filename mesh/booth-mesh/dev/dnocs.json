@@ -1,14 +1,14 @@
-[
-    {
+{
+    "0": {
 	"name" :"dnoc0",
 	"display": "Nonexistant DNOC"
     },
-    {
+    "1": {
 	"name" :"dnoc1",
 	"display": "Test DNOC 1"
     },
-    {
+    "2": {
 	"name" :"dnoc2",
 	"display": "Test DNOC 2"
     }
-]
+}
