@@ -1,30 +1,31 @@
 [
     {
-
-	"#": "TODO: The 'name' field for each of these has to be replaced",
-	"#": "TODO: with the DNOC perfSONAR's FQDN.",
-
-	"name" :"dnoc571.scinet.fqdn",
+        "name": "DNOC571-PS10G-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 571"
     },
     {
-	"name" :"dnoc614.scinet.fqdn",
+        "name": "DNOC614-PS10G-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 614"
     },
     {
-	"name" :"noc.scinet.fqdn",
+	"name": "NOC1081-PS100G-eth1.sc19.org",
 	"display": "SCinet NOC, Booth 1081"
     },
     {
-	"name" :"dnoc1238.scinet.fqdn",
+        "name": "DNOC1238-PS10G-eth1.sc19.org",
 	"display": "SCinet DNOC 1238"
     },
     {
-	"name" :"dnoc1717.scinet.fqdn",
+        "name": "DNOC1717-PS10G-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 1717"
     },
     {
-	"name" :"dnoc1771.scinet.fqdn",
+        "name": "DNOC1771-PS10G-eth1.sc19.org",
 	"display": "SCinet DNOC, Booth 1771"
     }
 ]
+
+
+
+
+
