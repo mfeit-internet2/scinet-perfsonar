@@ -112,7 +112,7 @@ sudo -u "${ANSIBLE_USER}" ansible-playbook \
 
 sudo -u "${ANSIBLE_USER}" ansible-playbook \
     -i "${INVENTORY}/" \
-    "${WHEREAMI}/ansible/playbooks/maddash-netreach.yml" \
+    "${WHEREAMI}/ansible/playbooks/maddash-fixups.yml" \
     | tee "${HOME}/ansible-maddash.out"
 
 
@@ -124,4 +124,4 @@ sudo -u "${ANSIBLE_USER}" ansible-playbook \
 sudo -u "${ANSIBLE_USER}" ansible-playbook \
     -i "${INVENTORY}/" \
     "${WHEREAMI}/ansible/playbooks/esmond-archiver-fix.yml" \
-    | tee "${HOME}/ansible-maddash.out"
+    | tee "${HOME}/ansible-esmond.out"

@@ -18,8 +18,8 @@
     },
     "defaults": {
         "check-interval": "PT5M",
-        "warning-threshold": "0.1",
-        "critical-threshold": "0.9",
+        "warning-threshold": "0.9",
+        "critical-threshold": "0.1,
         "retry-attempts": 1,
         "retry-interval": "PT8M",
         "report-yaml-file": "",
@@ -28,7 +28,7 @@
             "time-range": "86400",
             "tool": "",
             "function": "",
-            "jq": "if .\"network-up\" then 1 else 0 end",
+            "jq": "if .\\\"network-up\\\" then 1 else 0 end",
             "use-host": "",
             "units": "",
             "scale": "",
@@ -75,7 +75,7 @@
         },
         "--metadata-params__network": {
             "condition": "{% check.vars.network %}",
-            "arg": "pscheduler-netreach-record {% check.vars.network %}"
+            "arg": "pscheduler-netreach-network {% check.vars.network %}"
         },
 
         "--function": {
@@ -94,12 +94,12 @@
         "--warning": {
             "required": true,
             "condition": "{% check.warning %}",
-            "arg": "{% check.warning %}"
+            "arg": "{% check.warning %}:"
         },
         "--critical": {
             "required": true,
             "condition": "{% check.critical %}",
-            "arg": "{% check.critical %}"
+            "arg": "{% check.critical %}:"
         },
         "--tool-name": {
             "condition": "{% check.params.tool %}",
