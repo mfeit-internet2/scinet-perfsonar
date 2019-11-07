@@ -11,7 +11,7 @@
     },
     "status-labels": {
         "ok":"At least one host on the network is reachable",
-        "warning": "This should never appear",
+        "warning": "N/A",
         "critical": "No hosts on the network are reachable",
         "notrun": "Check has not run yet",
         "unknown": "Unable to find test data"
@@ -19,7 +19,7 @@
     "defaults": {
         "check-interval": "PT5M",
         "warning-threshold": "0.9",
-        "critical-threshold": "0.1,
+        "critical-threshold": "0.1",
         "retry-attempts": 1,
         "retry-interval": "PT8M",
         "report-yaml-file": "",
