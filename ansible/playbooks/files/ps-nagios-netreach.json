@@ -28,7 +28,7 @@
             "time-range": "86400",
             "tool": "",
             "function": "",
-            "jq": "if .\\\"network-up\\\" then 1 else 0 end",
+            "jq": ".\\\"network-up\\\"|tostring|sub(\\\"true\\\";\\\"1\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber",
             "use-host": "",
             "units": "",
             "scale": "",

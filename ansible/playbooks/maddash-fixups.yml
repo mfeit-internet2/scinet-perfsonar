@@ -10,14 +10,23 @@
         var: groups['ps-maddash']
 
     # Graph Scale
-
     - name: change maddash throughput graph scale for 10GB networks
       command: > 
         psconfig maddash-grid edit --name default_throughput
         --check-critical-threshold 6 --check-warning-threshold 9
 
-    # Netreach additions
+    # Style Sheets
+    - name: Copy MaDDash style sheets
+      copy:
+        src: "{{ item }}"
+        dest: /home/psfarm/farm/scinet-perfsonar/maddash
+	owner: maddash
+	group: maddash
+	mode: '0444'
+      with_fileglob:
+        - "{{ playbook_dir }}/files/maddash*.css"
 
+    # Netreach additions
     - name: copy ps-nagios-netreach.json
       copy:
         src: "{{ playbook_dir }}/files/ps-nagios-netreach.json"
@@ -42,7 +51,6 @@
     - name: run install-default-netreach.sh
       command: /tmp/install-default-netreach.sh /tmp/default-netreach.json
 
-
     # Add missing "blank" viz template
     # TODO: This should be fixed by SC20.
     - name: Install blank vizualization template
@@ -53,7 +61,6 @@
         group: perfsonar
         mode: '0444'
 
-
     # Make sure HTTPD is enabled
     # TODO: This should be fixed by SC20.
     - name: Enable HTTPD
@@ -62,13 +69,9 @@
         enabled: yes
         state: started
 
-
     # Disable SELinux
-
     - name: Disable SELinux
       selinux:
         state: disabled
-
     - name: Reboot after changing SELinux state
       reboot:
-
