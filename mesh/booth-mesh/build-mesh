@@ -13,13 +13,14 @@ jq --slurp '
   | [
       .[]
       | {
-          "address": $dnocs[.dnoc].name,
+          "address": "\($dnocs[.dnoc].name)-booth\(.booth)-\(.protocol)",
           "_meta": {
             "display-name" : "\(
               # Zero-pad the booth numbers so they sort numerically
               .booth as $booth
               | "0" * (4-($booth |length)) + $booth
               ) - \(.name)",
+            "dnochost": $dnocs[.dnoc].name,
             "name": "booth-\(.booth)-\(.protocol)",
             "booth": .booth,
             "network": .network,
@@ -32,7 +33,28 @@ jq --slurp '
 ' \
     booths.json \
     dnocs.json \
-    > addresses.json
+    > booth-addresses.json
+
+
+# Convert the DNOC list to address entries
+
+jq '
+  [
+    .[]
+    | {
+        "address": .name,
+        "_meta": {
+          "name": .name,
+          "dnochost": .name,
+          "display-name": .display
+        }
+      }
+    | { "\(._meta.name)": . }
+  ]
+  | add
+' \
+    dnocs.json \
+    > dnoc-addresses.json
 
 
 # Create groups for each DNOC
@@ -47,11 +69,14 @@ jq --slurp '
         .name as $dnoc
         | {
             (.display): {
-              "type": "list",
-              "addresses": ( [
+              "type": "disjoint",
+              "unidirectional": true,
+              "a-addresses": [ { "name": .name } ],
+              "b-addresses": ( [
                 $addresses 
                 | .[]
-                | select(.address == $dnoc)
+                ###| select(.address == $dnoc)
+                | select(.address | startswith("\($dnoc)-"))
                 | { "name": (._meta.name) }
               ] )
             }
@@ -61,7 +86,7 @@ jq --slurp '
   | add
 ' \
     dnocs.json \
-    addresses.json \
+    booth-addresses.json \
     > groups.json
 
 
@@ -89,15 +114,16 @@ jq '
 
 jq --slurp '
   {
-    "addresses": .[0],
-    "groups": .[1],
-    "tests": .[2],
-    "schedules": .[3],
-    "tasks": .[4],
-    "archives": .[5]
+    "addresses": (reduce (.[0] + .[1]) as $item ({}; . * $item)),
+    "groups": .[2],
+    "tests": .[3],
+    "schedules": .[4],
+    "tasks": .[5],
+    "archives": .[6]
   }
 ' \
-    addresses.json \
+    booth-addresses.json \
+    dnoc-addresses.json \
     groups.json \
     tests.json \
     schedules.json \

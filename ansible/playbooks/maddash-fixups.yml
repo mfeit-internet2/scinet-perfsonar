@@ -1,4 +1,6 @@
-# perfSONAR config
+#
+# Fixups to MaDDash
+#
 
 - name: perfSONAR MadDash
   tags: maddash
@@ -19,10 +21,10 @@
     - name: Copy MaDDash style sheets
       copy:
         src: "{{ item }}"
-        dest: /home/psfarm/farm/scinet-perfsonar/maddash
-	owner: maddash
-	group: maddash
-	mode: '0444'
+        dest: /usr/lib/maddash/maddash-webui/style
+        owner: maddash
+        group: maddash
+        mode: '0444'
       with_fileglob:
         - "{{ playbook_dir }}/files/maddash*.css"
 

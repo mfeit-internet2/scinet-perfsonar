@@ -30,6 +30,8 @@ $(OUTPUT): build-mesh archives.json booths.json dnocs.json schedules.json tests.
 MESHES += booth-mesh.json
 TO_CLEAN += \
 	addresses.json \
+	booth-addresses.json \
+	dnoc-addresses.json \
 	groups.json \
 	tasks.json \
 	$(OUTPUT)

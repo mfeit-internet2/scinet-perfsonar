@@ -9,7 +9,7 @@
   {
     "booth": "101",
     "name": "Network 101",
-    "network": "127.0.0.0/24",
+    "network": "127.0.1.0/24",
     "protocol": "IPv4",
     "dnoc": "0"
   },
@@ -17,14 +17,14 @@
   {
     "booth": "1000",
     "name": "Network 1000",
-    "network": "127.0.0.0/24",
+    "network": "127.0.100.0/24",
     "protocol": "IPv4",
     "dnoc": "1"
   },
   {
     "booth": "1001",
     "name": "Network 1001",
-    "network": "127.0.0.0/24",
+    "network": "127.0.101.0/24",
     "protocol": "IPv4",
     "dnoc": "1"
   },
@@ -32,14 +32,14 @@
   {
     "booth": "2000",
     "name": "Network 2000",
-    "network": "127.0.0.0/24",
+    "network": "127.0.200.0/24",
     "protocol": "IPv4",
     "dnoc": "2"
   },
   {
     "booth": "2001",
     "name": "Network 2001",
-    "network": "127.0.0.0/24",
+    "network": "127.0.201.0/24",
     "protocol": "IPv4",
     "dnoc": "2"
   }

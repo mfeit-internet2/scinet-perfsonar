@@ -2,8 +2,8 @@
     "booth-reachability": {
         "type": "netreach",
 	"spec": {
-	    "host": "{% jq .addresses[0].address %}",
-	    "network": "{% jq .addresses[0]._meta.network %}",
+	    "host": "{% jq .addresses[0]._meta.dnochost %}",
+	    "network": "{% jq .addresses[1]._meta.network %}",
 	    "scan": "edges",
 	    "schema": 1,
 	    "timeout": "PT10S"
