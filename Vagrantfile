@@ -57,10 +57,6 @@ Vagrant.configure("2") do |config|
 
         set -e
 
-	# TODO: REMOVE THESE
-        #ip route del default
-        #ip route add default via "#{gateway}"
-
         echo "GATEWAY=#{gateway}" >> /etc/sysconfig/network-scripts/ifcfg-eth1
 
 	# Make sure DHCP interfaces don't add their own defaults
