@@ -49,14 +49,30 @@ Vagrant.configure("2") do |config|
 
       # Set the default route
 
+      # NOTE: This contains configuration specific to the Internet2
+      # perfSONAR development farm.
+
       # TODO: Some of these provisions only need to be run once.
       host.vm.provision "#{name}-default-route", type: "shell", run: "always", inline: <<-SHELL
 
         set -e
 
-        ip route del default
-        ip route add default via "#{gateway}"
+	# TODO: REMOVE THESE
+        #ip route del default
+        #ip route add default via "#{gateway}"
+
         echo "GATEWAY=#{gateway}" >> /etc/sysconfig/network-scripts/ifcfg-eth1
+
+	# Make sure DHCP interfaces don't add their own defaults
+
+	for FILE in $(egrep -le '^BOOTPROTO=.?dhcp.?' /etc/sysconfig/network-scripts/ifcfg-* \
+	    | egrep -ve '\.bak$')              
+	do
+	    sed -i -e '/^DEFROUTE=/d' "${FILE}"
+	    echo "DEFROUTE=no" >> "${FILE}"
+	done
+
+
 	systemctl restart network
 
       SHELL
