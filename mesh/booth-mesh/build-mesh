@@ -24,9 +24,11 @@ jq --slurp '
             "name": "booth-\(.booth)-\(.protocol)",
             "booth": .booth,
             "network": .network,
+            "gateway": .gateway,
             "protocol": .protocol
           }
         }
+      | if .gateway == null then del(.gateway) else . end
     ]
   | map( { "\(._meta.name)": . } )
   | add
@@ -75,7 +77,6 @@ jq --slurp '
               "b-addresses": ( [
                 $addresses 
                 | .[]
-                ###| select(.address == $dnoc)
                 | select(.address | startswith("\($dnoc)-"))
                 | { "name": (._meta.name) }
               ] )

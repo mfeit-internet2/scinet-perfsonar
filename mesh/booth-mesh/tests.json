@@ -4,6 +4,7 @@
 	"spec": {
 	    "host": "{% jq .addresses[0]._meta.dnochost %}",
 	    "network": "{% jq .addresses[1]._meta.network %}",
+	    "gateway": "{% jq .addresses[1]._meta.gateway %}",
 	    "scan": "edges",
 	    "schema": 1,
 	    "timeout": "PT10S"

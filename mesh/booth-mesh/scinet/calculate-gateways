@@ -1,0 +1,17 @@
+#!/usr/bin/python
+
+import ipaddress
+import json
+import sys
+
+text = sys.stdin.read()
+
+data = json.loads(text)
+
+for network in data:
+    net = ipaddress.ip_network(unicode(network["network"]))
+    network["gateway"] = str(net[1])
+
+print json.dumps(data, sort_keys=True,
+                         indent=4,
+                         separators=(',', ': '))

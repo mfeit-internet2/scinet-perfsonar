@@ -10,9 +10,9 @@
         "script": [ ".url" ]
     },
     "status-labels": {
-        "ok":"At least one host on the network is reachable",
-        "warning": "N/A",
-        "critical": "No hosts on the network are reachable",
+        "ok":"Host(s) are reachable",
+        "warning": "Only gateway is reachable",
+        "critical": "Nothing is reachable",
         "notrun": "Check has not run yet",
         "unknown": "Unable to find test data"
     },
@@ -28,12 +28,12 @@
             "time-range": "86400",
             "tool": "",
             "function": "",
-            "jq": ".\\\"network-up\\\"|tostring|sub(\\\"true\\\";\\\"1\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber",
+            "jq": "(.\\\"network-up\\\"|tostring|sub(\\\"true\\\";\\\"1.0\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber)+(.\\\"gateway-up\\\"|tostring|sub(\\\"true\\\";\\\"0.5\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber)",
             "use-host": "",
             "units": "",
             "scale": "",
             "label-ok-symbol": "Up",
-            "label-warning-symbol": "N/A",
+            "label-warning-symbol": "Gateway Only",
             "label-critical-symbol": "Down"
         }
     },

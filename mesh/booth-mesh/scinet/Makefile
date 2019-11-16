@@ -17,9 +17,16 @@ TO_CLEAN+=$(JSONS)
 
 
 # Booth list for mesh without DNOCs
-booths-phase-1: vlans2booth.jq scinet-vlans.json
+booths-phase-1a: vlans2booth.jq scinet-vlans.json
 	jq -f vlans2booth.jq scinet-vlans.json > $@
+TO_CLEAN += booths-phase-1a
+
+
+# Add gateways
+booths-phase-1: booths-phase-1a
+	./calculate-gateways < $< > $@
 TO_CLEAN += booths-phase-1
+
 
 
 # DNOC list
