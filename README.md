@@ -29,7 +29,7 @@ That will be remedied.
 Still on the controller, repeat the following for each of the
 non-controller hosts:
 
- * `scp build-ansible-account ssh/id_rsa.pub root@HOST-NAME`
+ * `scp build-ansible-account ssh/id_rsa.pub root@HOST-NAME:~`
  * `ssh root@HOST-NAME -c "sh ./build-ansible-account id_rsa.pub"`
 
 
