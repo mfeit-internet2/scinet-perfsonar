@@ -4,6 +4,12 @@
 
 OUTPUT=net-mesh.json
 
+ifndef NETWORK
+NETWORK := $(shell [ -d /vagrant ] && echo "dev" || echo "scinet")
+endif
+
+
+
 
 default: $(OUTPUT)
 

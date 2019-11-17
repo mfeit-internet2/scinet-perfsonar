@@ -22,8 +22,14 @@ subdirs:
 
 
 # Pre-build of SSH keys for manual parts
-phase1: subdirs
+phase1:
+	rpm -q epel-release > /dev/null || yum -y install epel-release
+	rpm -q jq > /dev/null || yum -y install jq
+	rpm -q python-ipaddress > /dev/null || yum -y install python-ipaddress
+	yum -y install jq python-ipaddress
+	$(MAKE) subdirs
 	./build-ansible-account ssh/authorized_keys
+
 
 # Go forth and provision everything
 phase2:

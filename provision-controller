@@ -9,6 +9,7 @@ then
     exit 1
 fi
 
+WHOAMI=$(basename "$0")
 WHEREAMI=$(dirname "$0")
 
 
@@ -25,6 +26,8 @@ ANSIBLE_HOME=~ansible
 #
 # EPEL, which has newer versions of a few things we use.
 #
+
+# TODO: Can probably just install "epel-relase"
 
 # Determine the RHEL version without depending on lsb_release.
 REDHAT_RELEASE_MAJOR=$(sed -e 's/^.* \([0-9.]\+\) .*$/\1/' /etc/redhat-release | awk -F. '{ print $1 }')
@@ -92,13 +95,22 @@ make -C mesh clean
 make -C mesh
 cp mesh/scinet-mesh.json ${PLAYBOOK}/files/mesh.json
 
-# Make ansible own all of it
+#
+# Give Ansible a full set of everything and do the deed
+#
 
-chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" "${PLAYBOOK}"
+ANSIBLE_PLAYBOOK="${ANSIBLE_HOME}/${WHOAMI}-playbook"
+ANSIBLE_INVENTORY="${ANSIBLE_HOME}/${WHOAMI}-inventory"
+ 
+rm -rf "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}"
+cp -r "${PLAYBOOK}" "${ANSIBLE_PLAYBOOK}"
+cp -r "${INVENTORY}" "${ANSIBLE_INVENTORY}"
 
-# Make sure Ansible can see everything and do the deed.
+chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" \
+    "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}"
+ 
+sudo -u "${ANSIBLE_USER}" ansible -i "${ANSIBLE_INVENTORY}/" all -m ping
 
-sudo -u "${ANSIBLE_USER}" ansible -i "${INVENTORY}/" all -m ping
 
 # Main build
 

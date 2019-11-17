@@ -15,17 +15,23 @@ ansible_become_user=root
 #ansible_become_method=su
 
 [ps-testpoints]
-# TODO: Add testpoints
+# TODO: Enable these as they're brought online
+#dnoc571-ps10g-1.19.scconf.org
+#dnoc614-ps10g-1.19.scconf.org
+#dnoc1238-ps10g-1.19.scconf.org
+#dnoc1717-ps10g-1.19.scconf.org
+#dnoc1771-ps10g-1.19.scconf.org
+#noc-ps100g-1.19.scconf.org
 
 [ps-toolkits]
 
 [ps-archives]
-# TODO: Add archive
+ps-archive.scconf.org
 
 [ps-maddash]
-# TODO: Add maddash
+ps-maddash.scconf.org
 
 [ps-psconfig-publishers]
-# TODO: Add publisher
+ps-publisher.scconf.org
 
 [ps-psconfig-web-admin]
