@@ -116,10 +116,14 @@ chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" \
 # Do the deed
 #
 
+sudo -u "${ANSIBLE_USER}" ansible -i "${ANSIBLE_INVENTORY}/" "$@" all -m ping
+
 do_ansible()
 {
-    sudo -u "${ANSIBLE_USER}" ansible -i "${ANSIBLE_INVENTORY}/" "$@"
+    sudo -u "${ANSIBLE_USER}" ansible-playbook -i "${ANSIBLE_INVENTORY}/" "$@"
 } 
+ 
+
 
 do_ansible all -m ping
 
