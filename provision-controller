@@ -96,35 +96,41 @@ make -C mesh
 cp mesh/scinet-mesh.json ${PLAYBOOK}/files/mesh.json
 
 #
-# Give Ansible a full set of everything and do the deed
+# Give Ansible a full set of everything
 #
 
 ANSIBLE_PLAYBOOK="${ANSIBLE_HOME}/${WHOAMI}-playbook"
 ANSIBLE_INVENTORY="${ANSIBLE_HOME}/${WHOAMI}-inventory"
+ANSIBLE_ANSIBLE="${ANSIBLE_HOME}/${WHOAMI}-ansible"
  
-rm -rf "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}"
+rm -rf "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}" "${ANSIBLE_ANSIBLE}"
 cp -r "${PLAYBOOK}" "${ANSIBLE_PLAYBOOK}"
 cp -r "${INVENTORY}" "${ANSIBLE_INVENTORY}"
+cp -r "${WHEREAMI}/ansible" "${ANSIBLE_ANSIBLE}"
 
 chown -R "${ANSIBLE_USER}.${ANSIBLE_USER}" \
-    "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}"
- 
-sudo -u "${ANSIBLE_USER}" ansible -i "${ANSIBLE_INVENTORY}/" all -m ping
+    "${ANSIBLE_PLAYBOOK}" "${ANSIBLE_INVENTORY}" "${ANSIBLE_ANSIBLE}"
+
+
+#
+# Do the deed
+#
+
+do_ansible()
+{
+    sudo -u "${ANSIBLE_USER}" ansible -i "${ANSIBLE_INVENTORY}/" "$@"
+} 
+
+do_ansible all -m ping
 
 
 # Main build
-
-sudo -u "${ANSIBLE_USER}" ansible-playbook \
-    -i "${INVENTORY}/" \
-    "${PLAYBOOK}/perfsonar.yml" \
+do_ansible "${ANSIBLE_PLAYBOOK}/perfsonar.yml" \
     | tee "${HOME}/ansible.out"
 
 
 # MaDDash tweaks
-
-sudo -u "${ANSIBLE_USER}" ansible-playbook \
-    -i "${INVENTORY}/" \
-    "${WHEREAMI}/ansible/playbooks/maddash-fixups.yml" \
+do_ansible "${ANSIBLE_ANSIBLE}/playbooks/maddash-fixups.yml" \
     | tee "${HOME}/ansible-maddash.out"
 
 
@@ -133,7 +139,5 @@ sudo -u "${ANSIBLE_USER}" ansible-playbook \
 # TODO: This should come out for SC20 since perfSONAR will have
 # released the patched version by then.
 
-sudo -u "${ANSIBLE_USER}" ansible-playbook \
-    -i "${INVENTORY}/" \
-    "${WHEREAMI}/ansible/playbooks/esmond-archiver-fix.yml" \
+do_ansible "${ANSIBLE_ANSIBLE}/playbooks/esmond-archiver-fix.yml" \
     | tee "${HOME}/ansible-esmond.out"
