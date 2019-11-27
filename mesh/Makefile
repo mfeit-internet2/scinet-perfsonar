@@ -9,7 +9,9 @@ TO_CLEAN_LIST=.to-clean
 default: $(OUTPUT)
 
 
-MESHES := $(shell find . -type d -name '*-mesh' -exec basename {} \;)
+# TODO: REPLACE THIS
+#MESHES := $(shell find . -type d -name '*-mesh' -exec basename {} \;)
+MESHES := meta-mesh net-mesh booth-mesh
 
 MESHES_JSON := $(MESHES:%=%.json)
 

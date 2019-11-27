@@ -7,7 +7,8 @@ OUTPUT=booths.json
 default: $(OUTPUT)
 
 %.json: %.csv Makefile
-	jq -R -s -f csv2json.jq $< > $@
+	sed -e '/^#/d' $< \
+		| jq -R -s -f csv2json.jq > $@
 
 JSONS=\
 	scinet-booths.json \

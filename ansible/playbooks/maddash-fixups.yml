@@ -15,7 +15,7 @@
     - name: change maddash throughput graph scale for 10GB networks
       command: > 
         psconfig maddash-grid edit --name default_throughput
-        --check-critical-threshold 6 --check-warning-threshold 9
+        --check-critical-threshold 4 --check-warning-threshold 7
 
     # Style Sheets
     - name: Copy MaDDash style sheets
@@ -75,5 +75,13 @@
     - name: Disable SELinux
       selinux:
         state: disabled
-    - name: Reboot after changing SELinux state
-      reboot:
+    # TODO: REMOVE THIS
+    #- name: Reboot after changing SELinux state
+    #  reboot:
+
+    # Enable HTTPS port
+    - name: Enable HTTPS on firewall
+      firewalld:
+        service: https
+        permanent: yes
+        state: enabled

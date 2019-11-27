@@ -124,24 +124,21 @@ do_ansible()
 } 
  
 
-
-do_ansible all -m ping
-
-
 # Main build
 do_ansible "${ANSIBLE_PLAYBOOK}/perfsonar.yml" \
     | tee "${HOME}/ansible.out"
 
+# publisher tweaks
+do_ansible "${ANSIBLE_ANSIBLE}/playbooks/publisher-fixups.yml" \
+    | tee "${HOME}/ansible-publisher.out"
 
 # MaDDash tweaks
 do_ansible "${ANSIBLE_ANSIBLE}/playbooks/maddash-fixups.yml" \
     | tee "${HOME}/ansible-maddash.out"
 
-
 # Patch to Esmond archiver
 #
 # TODO: This should come out for SC20 since perfSONAR will have
 # released the patched version by then.
-
 do_ansible "${ANSIBLE_ANSIBLE}/playbooks/esmond-archiver-fix.yml" \
     | tee "${HOME}/ansible-esmond.out"

@@ -16,11 +16,11 @@ ansible_become_user=root
 
 [ps-testpoints]
 # TODO: Enable these as they're brought online
-#dnoc571-ps10g-1.19.scconf.org
-#dnoc614-ps10g-1.19.scconf.org
-#dnoc1238-ps10g-1.19.scconf.org
-#dnoc1717-ps10g-1.19.scconf.org
-#dnoc1771-ps10g-1.19.scconf.org
+dnoc571-ps10g-1.19.scconf.org
+dnoc614-ps10g-1.19.scconf.org
+dnoc1238-ps10g-1.19.scconf.org
+dnoc1717-ps10g-1.19.scconf.org
+dnoc1771-ps10g-1.19.scconf.org
 #noc-ps100g-1.19.scconf.org
 
 [ps-toolkits]

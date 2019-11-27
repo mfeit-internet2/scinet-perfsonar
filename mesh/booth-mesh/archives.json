@@ -2,7 +2,7 @@
     "booth-reachability": {
 	"archiver": "esmond",
 	"data": {
-            "url": "https://archive/esmond/perfsonar/archive",
+            "url": "https://ps-archive.scconf.org/esmond/perfsonar/archive",
             "measurement-agent": "{% scheduled_by_address %}"
 	}
     }

@@ -25,7 +25,7 @@
         "report-yaml-file": "",
         "timeout": "PT60S",
         "params": {
-            "time-range": "86400",
+            "time-range": "1200",
             "tool": "",
             "function": "",
             "jq": "(.\\\"network-up\\\"|tostring|sub(\\\"true\\\";\\\"1.0\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber)+(.\\\"gateway-up\\\"|tostring|sub(\\\"true\\\";\\\"0.5\\\")|sub(\\\"false\\\";\\\"0\\\")|tonumber)",

@@ -1,6 +1,6 @@
----
+#
 # defaults file for perfsonar-archive
-
+#
 # perfsonar_archive_auth_list entries have three elements:
 #   address: ip address
 #   state: absent or present
@@ -11,4 +11,44 @@
 #  - address: ip_addr
 #    state: [ present | absent ]
 #    user: perfsonar
-perfsonar_archive_auth_list: []
+
+perfsonar_archive_auth_list:
+
+  # Extreme Networks on SCinet
+  - address: 140.221.250.117
+    state: present
+    user: extreme
+  - address: 140.221.250.118
+    state: present
+    user: extreme
+  - address: 140.221.250.119
+    state: present
+    user: extreme
+  - address: 140.221.250.120
+    state: present
+    user: extreme-noc
+
+  # IN@IU: 149.165.239.227 - thrpt10ge-1.in.iu.edu (10GE tester; CentOS 7)
+  - address: 149.165.239.227
+    state: present
+    user: in-at-iu
+
+  # ESnet (AMS): 198.124.238.14 - amst-pt1.es.net
+  - address: 198.124.238.14
+    state: present
+    user: es-ams
+
+  # IRNC (NEWY): 192.203.116.33 - perf.newy32aoa.neaar.net
+  - address: 192.203.116.33
+    state: present
+    user: irnc-newy
+
+  # ESnet (DEN): 198.129.254.14 - denv-pt1.es.net
+  - address: 198.129.254.1
+    state: present
+    user: es-den
+
+  # TransPAC (Hong Kong): 192.203.115.97 - perf.hong.transpac.org
+  - address: 192.203.115.97
+    state: present
+    user: es-den

@@ -1,14 +1,234 @@
 {
   "addresses": {
+    "scinet-dnoc571": {
+      "address": "dnoc571-ps10g-1.19.scconf.org",
+      "_meta": {
+        "display-name": "SCinet DNOC - Booth 571"
+      }
+    },
+    "scinet-dnoc614": {
+      "address": "dnoc614-ps10g-1.19.scconf.org",
+      "_meta": {
+        "display-name": "SCinet DNOC - Booth 614"
+      }
+    },
+    "scinet-dnoc1238": {
+      "address": "dnoc1238-ps10g-1.19.scconf.org",
+      "_meta": {
+        "display-name": "SCinet DNOC - Booth 1238"
+      }
+    },
+    "scinet-dnoc1717": {
+      "address": "dnoc1717-ps10g-1.19.scconf.org",
+      "_meta": {
+        "display-name": "SCinet DNOC - Booth 1717"
+      }
+    },
+    "scinet-dnoc1771": {
+      "address": "dnoc1771-ps10g-1.19.scconf.org",
+      "_meta": {
+        "display-name": "SCinet DNOC - Booth 1771"
+      }
+    },
+    "scinet-extreme-1": {
+      "address": "140.221.250.117",
+      "_meta": {
+        "display-name": "Extreme Networks 1 - Booth 975"
+      }
+    },
+    "scinet-extreme-2": {
+      "address": "140.221.250.118",
+      "_meta": {
+        "display-name": "Extreme Networks 2 - Booth 975"
+      }
+    },
+    "scinet-extreme-3": {
+      "address": "140.221.250.119",
+      "_meta": {
+        "display-name": "Extreme Networks 3 - Booth 975"
+      }
+    },
+    "scinet-extreme-noc": {
+      "address": "140.221.250.120",
+      "_meta": {
+        "display-name": "Extreme Networks 4 - NOC"
+      }
+    },
+
+     "scinet-iniu": {
+      "address": "thrpt10ge-1.in.iu.edu",
+      "_meta": {
+        "display-name": "Indiana University"
+      }
+    },
+
+     "scinet-es-ams": {
+      "address": "amst-pt1.es.net",
+      "no-agent": true,
+      "_meta": {
+        "display-name": "ESNet Amsterdam"
+      }
+    },
+
+     "scinet-es-denv": {
+      "address": "denv-pt1.es.net",
+      "no-agent": true,
+      "_meta": {
+        "display-name": "ESNet Denver"
+      }
+    },
+
+     "scinet-irnc-newy": {
+      "address": "perf.newy32aoa.neaar.net",
+      "no-agent": true,
+      "_meta": {
+        "display-name": "IRNC New York"
+      }
+    },
+
+     "scinet-transpac-hk": {
+      "address": "perf.hong.transpac.org",
+      "no-agent": true,
+      "_meta": {
+        "display-name": "TransPAC Hong Kong"
+      }
+    }
+
   },
   "groups": {
+    "scinet-infrastructure": {
+      "type": "mesh",
+      "addresses": [
+        {
+          "name": "scinet-extreme-1"
+        },
+        {
+          "name": "scinet-extreme-2"
+        },
+        {
+          "name": "scinet-extreme-3"
+        },
+        {
+          "name": "scinet-extreme-noc"
+        },
+        {
+          "name": "scinet-dnoc571"
+        },
+        {
+          "name": "scinet-dnoc614"
+        },
+        {
+          "name": "scinet-dnoc1238"
+        },
+        {
+          "name": "scinet-dnoc1717"
+        },
+        {
+          "name": "scinet-dnoc1771"
+        },
+        {
+          "name": "scinet-iniu"
+        },
+        {
+          "name": "scinet-es-ams"
+        },
+        {
+          "name": "scinet-es-denv"
+        },
+        {
+          "name": "scinet-irnc-newy"
+        },
+        {
+          "name": "scinet-transpac-hk"
+        }
+      ]
+    }
   },
   "tests": {
+    "scinet-reachability": {
+      "type": "rtt",
+      "spec": {
+        "source": "{% address[0] %}",
+        "dest": "{% address[1] %}"
+      }
+    },
+    "scinet-throughput": {
+      "type": "throughput",
+      "spec": {
+        "source": "{% address[0] %}",
+        "dest": "{% address[1] %}"
+      }
+    },
+    "scinet-throughput-1g": {
+      "type": "throughput",
+      "spec": {
+        "source": "{% address[0] %}",
+        "dest": "{% address[1] %}"
+      }
+    },
+    "scinet-throughput-10g": {
+      "type": "throughput",
+      "spec": {
+        "source": "{% address[0] %}",
+        "dest": "{% address[1] %}"
+      }
+    },
+    "scinet-throughput-100g": {
+      "type": "throughput",
+      "spec": {
+        "source": "{% address[0] %}",
+        "dest": "{% address[1] %}"
+      }
+    }
   },
   "schedules": {
+    "scinet-frequently": {
+      "repeat": "PT2M",
+      "slip": "PT1M",
+      "sliprand": true
+    },
+    "scinet-sparsely": {
+      "repeat": "PT5M",
+      "slip": "PT4M",
+      "sliprand": true
+    },
+    "scinet-hourly": {
+      "repeat": "PT1H",
+      "slip": "PT30M",
+      "sliprand": true
+    }
   },
   "tasks": {
+    "scinet-infrastructure-rtt": {
+      "group": "scinet-infrastructure",
+      "test": "scinet-reachability",
+      "schedule": "scinet-sparsely",
+      "archives": [
+        "ma"
+      ],
+      "_meta": {
+        "display-name": "SCinet Round Trip Time"
+      }
+    },
+    "throughput": {
+      "group": "scinet-infrastructure",
+      "test": "scinet-throughput",
+      "schedule": "scinet-hourly",
+      "archives": [
+        "ma"
+      ],
+      "_meta": {
+        "display-name": "SCinet Throughput"
+      }
+    }
   },
   "archives": {
+    "ma": {
+      "archiver": "esmond",
+      "data": {
+        "measurement-agent": "{% scheduled_by_address %}",
+        "url": "https://ps-archive.scconf.org/esmond/perfsonar/archive/"
+      }
+    }
   }
 }
