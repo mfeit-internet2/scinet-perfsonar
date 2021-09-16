@@ -1,3 +1,7 @@
+# This repository has been moved to the SCinet GitLab instance.
+
+
+
 # SCinet perfSONAR Deployment Workbench
 
 This project contains infrastructure for running a mockup of the
